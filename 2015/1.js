@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const input = fs.readFileSync("./input.txt", { encoding: "utf-8" }).replace("\r\n", "").split("");
+const input = fs.readFileSync("1.txt", { encoding: "utf-8" }).replace("\r\n", "").split("");
 const floors = input.map(x => Number(x.replace("(", "1").replace(")", "-1")));
 
 // Part 1
