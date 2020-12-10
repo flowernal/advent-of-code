@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const numbers = fs.readFileSync("./numbers.txt", { encoding: "utf-8" }).split("\r\n").map(num => Number(num));
+const numbers = fs.readFileSync("1.txt", "utf-8").split("\r\n").map(num => Number(num));
 
 // Part 1
 function part1() {

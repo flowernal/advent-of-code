@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const passwords = fs.readFileSync("./passwords.txt", { encoding: "utf-8" }).split("\r\n");
+const passwords = fs.readFileSync("2.txt", "utf-8").split("\r\n");
 
 // Create objects with passwords
 const passwordObjects = [];
@@ -17,11 +17,10 @@ for(const element of passwords) {
 }
 
 // Part 1
-var validPasswords = 0;
+let validPasswords = 0;
 for(const password of passwordObjects) {
-    var occurences = (password.corrupted.match(new RegExp(password.letter, "g")) || []).length;
-
-    if(occurences >= password.range[0] && occurences <= password.range[1]) {
+    let occurrences = (password.corrupted.match(new RegExp(password.letter, "g")) || []).length;
+    if(occurrences >= password.range[0] && occurrences <= password.range[1]) {
         validPasswords++;
     }
 }
@@ -29,7 +28,7 @@ for(const password of passwordObjects) {
 console.log(`Part 1: ${validPasswords}`);
 
 // Part 2
-var actuallyValidPasswords = 0;
+let actuallyValidPasswords = 0;
 for(const password of passwordObjects) {
     if(password.corrupted[password.range[0] - 1] === password.letter || password.corrupted[password.range[1] - 1] === password.letter) {
         if(password.corrupted[password.range[0] - 1] !== password.corrupted[password.range[1] - 1]) {

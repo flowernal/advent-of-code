@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const input = fs.readFileSync("./input.txt", { encoding: "utf-8" }).split("\r\n\r\n").map(datas => {
+const input = fs.readFileSync("4.txt", "utf-8").split("\r\n\r\n").map(datas => {
     datas = datas.replace(/\r\n/g, " ").split(" ");
 
     const obj = {};

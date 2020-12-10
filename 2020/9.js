@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-let input = fs.readFileSync("./input.txt", "utf-8").split("\r\n").map(x => Number(x));
+let input = fs.readFileSync("9.txt", "utf-8").split("\r\n").map(x => Number(x));
 
 // Part 1
 let badNumber;

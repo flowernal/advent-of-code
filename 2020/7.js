@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-let input = fs.readFileSync("./input.txt", "utf-8").split("\r\n");
+let input = fs.readFileSync("7.txt", "utf-8").split("\r\n");
 
 // Part 1
 let count = 0;

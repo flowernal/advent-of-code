@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-let input = fs.readFileSync("./input.txt", "utf-8").split("\r\n")
+let input = fs.readFileSync("8.txt", "utf-8").split("\r\n")
     .map(x => {
         x = x.split(" ");
         return { operation: x[0], argument: Number(x[1]) };

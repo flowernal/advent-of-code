@@ -21,7 +21,7 @@ namespace Day2
             int validPasswords = 0;
             int actuallyValidPasswords = 0;
 
-            string[] input = File.ReadAllText("input.txt").Split("\r\n");
+            string[] input = File.ReadAllText("2.txt").Split("\r\n");
 
             // Create password objects
             foreach (var x in input)
@@ -37,9 +37,9 @@ namespace Day2
             // Part 1
             foreach (Password password in passwordObjects)
             {
-                int occurences = Regex.Matches(password.corrupted, $@"{password.letter}").Count;
+                int occurrences = Regex.Matches(password.corrupted, $@"{password.letter}").Count;
                 
-                if (occurences >= password.range[0] && occurences <= password.range[1])
+                if (occurrences >= password.range[0] && occurrences <= password.range[1])
                 {
                     validPasswords++;
                 }

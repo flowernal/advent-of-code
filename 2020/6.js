@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-let input = fs.readFileSync("./input.txt", "utf-8").split("\r\n\r\n")
+let input = fs.readFileSync("6.txt", "utf-8").split("\r\n\r\n")
     .map(x => x.split("\r\n").sort((a, b) => b.length - a.length));
 
 // Part 1

@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const input = fs.readFileSync("./input.txt", { encoding: "utf-8" }).split("\r\n").map(x => x.split("x").map(y => Number(y)));
+const input = fs.readFileSync("2.txt", "utf-8").split("\r\n").map(x => x.split("x").map(y => Number(y)));
 
 // Part 1
 const papers = input.map(dimensions => {

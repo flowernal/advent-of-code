@@ -12,7 +12,7 @@ namespace Day6
             int everyoneCount = 0;
 
             // Input
-            string[][] input = File.ReadAllText("input.txt").Split("\r\n\r\n").Select(x => x.Split("\r\n").OrderBy(y => y.Length).ToArray()).ToArray();
+            string[][] input = File.ReadAllText("6.txt").Split("\r\n\r\n").Select(x => x.Split("\r\n").OrderBy(y => y.Length).ToArray()).ToArray();
             
             // Part 1
             foreach (var x in input)

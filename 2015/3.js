@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const input = fs.readFileSync("./input.txt", { encoding: "utf-8" }).replace("\r\n", "").split("");
+const input = fs.readFileSync("3.txt", "utf-8").replace("\r\n", "").split("");
 
 // Part 1
 var houses = [];
@@ -95,4 +95,4 @@ input.forEach(direction => {
     }
 });
 
-console.log(`Part 1: ${houses.length}`);
+console.log(`Part 2: ${houses.length}`);

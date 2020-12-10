@@ -1,13 +1,13 @@
 const fs = require("fs");
 
-var input = fs.readFileSync("./input.txt", { encoding: "utf-8" });
+let input = fs.readFileSync("3.txt", "utf-8");
 
-var lastIndexOfRow = input.split("\r\n")[0].length - 1;
-var rowWidth = input.split("\r\n")[0].length;
+let lastIndexOfRow = input.split("\r\n")[0].length - 1;
+let rowWidth = input.split("\r\n")[0].length;
 
-var x = y = 0;
+let x = 0, y = 0;
 input = input.replace(/\r\n/g, "").split("").map(square => {
-    var tree = square == "#" ? true : false;
+    let tree = square === "#";
 
     const obj = {
         tree: tree,
@@ -26,10 +26,10 @@ input = input.replace(/\r\n/g, "").split("").map(square => {
 });
 
 const slide = (right, down) => {
-    x = y = treeCount = 0;
+    let x = 0, y = 0, treeCount = 0;
 
     while(y <= input[input.length - 1].y) {
-        var square = input.find(sqr => sqr.x === x && sqr.y === y);
+        let square = input.find(sqr => sqr.x === x && sqr.y === y);
         if(square) {
             if(square.tree) {
                 treeCount++;
