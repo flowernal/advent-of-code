@@ -22,9 +22,9 @@ const isOutOfBounds = (arr) => {
 
 const changeSeatStates = (arr, func, minOccupied) => {
     let seats = arr.map(e => [...e]);
+    let occupiedCount = 0;
     for(let i = 0; i < arr.length; i++) {
         for(let j = 0; j < arr[i].length; j++) {
-            let occupiedCount = 0;
             func(i, j).forEach(seat => occupiedCount += arr[seat[0]][seat[1]] === "#" ? 1 : 0);
             seats[i][j] = arr[i][j] !== "." && occupiedCount === 0 ? "#" : arr[i][j] === "#" && occupiedCount >= minOccupied ? "L" : seats[i][j];
         }
