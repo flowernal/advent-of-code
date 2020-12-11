@@ -38,10 +38,10 @@ const changeSeatStates = (arr) => {
     return seats;
 }
 
-let oldSeatStates = JSON.parse(JSON.stringify(input));
+let oldSeatStates = [...input];
 let currentSeatStates = changeSeatStates(oldSeatStates);
-while(JSON.stringify(oldSeatStates) !== JSON.stringify(currentSeatStates)) {
-    oldSeatStates = JSON.parse(JSON.stringify(currentSeatStates));
+while(oldSeatStates.join() !== currentSeatStates.join()) {
+    oldSeatStates = [...currentSeatStates];
     currentSeatStates = changeSeatStates(oldSeatStates);
 }
 
@@ -121,10 +121,10 @@ const changeSeatStates2 = (arr) => {
     return seats;
 }
 
-oldSeatStates = JSON.parse(JSON.stringify(input));
+oldSeatStates = [...input]
 currentSeatStates = changeSeatStates2(oldSeatStates);
-while(JSON.stringify(oldSeatStates) !== JSON.stringify(currentSeatStates)) {
-    oldSeatStates = JSON.parse(JSON.stringify(currentSeatStates));
+while(oldSeatStates.join() !== currentSeatStates.join()) {
+    oldSeatStates = [...currentSeatStates];
     currentSeatStates = changeSeatStates2(oldSeatStates);
 }
 
