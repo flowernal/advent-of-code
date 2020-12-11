@@ -39,18 +39,16 @@ const getOccupiedSeats = (func, minOccupied) => {
         oldSeatStates = [...currentSeatStates];
         currentSeatStates = changeSeatStates(oldSeatStates, func, minOccupied);
     }
-    return currentSeatStates.flat().filter(x => x === "#").length
+    return currentSeatStates.flat().filter(x => x === "#").length;
 }
 
 // Part 1
 const getAdjacentSeats = (i = 0, j = 0) => {
     let seats = [];
-
     for(const direction of directions) {
         let location = direction.map((x, index) => x + [i, j][index]);
         if(!isOutOfBounds(location)) seats.push(location);
     }
-
     return seats;
 }
 
@@ -59,7 +57,6 @@ console.log(`Part 1: ${getOccupiedSeats(getAdjacentSeats, 4)}`);
 // Part 2
 const getClosestSeats = (i = 0, j = 0) => {
     let seats = [];
-
     for(const direction of directions) {
         let location = direction.map((x, index) => x + [i, j][index]);
         while(!isOutOfBounds(location) && input[location[0]][location[1]] === ".") {
@@ -67,7 +64,6 @@ const getClosestSeats = (i = 0, j = 0) => {
         }
         if(!isOutOfBounds(location)) seats.push(location);
     }
-
     return seats;
 }
 
