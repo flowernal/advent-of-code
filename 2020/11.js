@@ -2,130 +2,73 @@ const fs = require("fs");
 
 let input = fs.readFileSync("11.txt", "utf-8").split("\r\n").map(x => x.split(""));
 
+let directions = [
+    // i, j (row, column)
+    [-1, -1], // top left
+    [-1, 0], // top
+    [-1, 1], // top right
+    [0, 1], // right
+    [1, 1], // bottom right
+    [1, 0], // bottom
+    [1, -1], // bottom left
+    [0, -1] // left
+];
+
+const isOutOfBounds = (arr) => {
+    let [i, j] = arr;
+    if(i === -1 || i >= input.length) return true;
+    return j === -1 || j >= input[0].length;
+}
+
+const changeSeatStates = (arr, func, minOccupied) => {
+    let seats = arr.map(e => [...e]);
+    for(let i = 0; i < arr.length; i++) {
+        for(let j = 0; j < arr[i].length; j++) {
+            let occupiedCount = 0;
+            func(i, j).forEach(seat => occupiedCount += arr[seat[0]][seat[1]] === "#" ? 1 : 0);
+            seats[i][j] = arr[i][j] !== "." && occupiedCount === 0 ? "#" : arr[i][j] === "#" && occupiedCount >= minOccupied ? "L" : seats[i][j];
+        }
+    }
+    return seats;
+}
+
+const getOccupiedSeats = (func, minOccupied) => {
+    let oldSeatStates = [...input];
+    let currentSeatStates = changeSeatStates(oldSeatStates, func, minOccupied);
+    while(oldSeatStates.join() !== currentSeatStates.join()) {
+        oldSeatStates = [...currentSeatStates];
+        currentSeatStates = changeSeatStates(oldSeatStates, func, minOccupied);
+    }
+    return currentSeatStates.flat().filter(x => x === "#").length
+}
+
 // Part 1
 const getAdjacentSeats = (i = 0, j = 0) => {
     let seats = [];
-    if(i - 1 !== -1 && j - 1 !== -1) seats.push([i - 1, j - 1]);
-    if(i - 1 !== -1) seats.push([i - 1, j]);
-    if(i - 1 !== -1 && j + 1 < input[0].length) seats.push([i - 1, j + 1]);
-    if(j + 1 < input[0].length) seats.push([i, j + 1]);
-    if(i + 1 < input.length && j + 1 < input[0].length) seats.push([i + 1, j + 1]);
-    if(i + 1 < input.length) seats.push([i + 1, j]);
-    if(i + 1 < input.length && j - 1 !== -1) seats.push([i + 1, j - 1]);
-    if(j - 1 !== -1) seats.push([i, j - 1]);
-    return seats;
-}
 
-const changeSeatStates = (arr) => {
-    let seats = JSON.parse(JSON.stringify(arr));
-    let tempSeats = JSON.parse(JSON.stringify(seats));
-    for(let i = 0; i < arr.length; i++) {
-        for(let j = 0; j < arr[i].length; j++) {
-            let occupiedCount = 0;
-            for(const seat of getAdjacentSeats(i, j)) {
-                if(tempSeats[seat[0]][seat[1]] === "#") {
-                    occupiedCount++;
-                }
-            }
-            if(tempSeats[i][j] !== "." && occupiedCount === 0) {
-                seats[i][j] = "#";
-            }
-            else if(tempSeats[i][j] === "#" && occupiedCount >= 4) {
-                seats[i][j] = "L";
-            }
-        }
+    for(const direction of directions) {
+        let location = direction.map((x, index) => x + [i, j][index]);
+        if(!isOutOfBounds(location)) seats.push(location);
     }
+
     return seats;
 }
 
-let oldSeatStates = [...input];
-let currentSeatStates = changeSeatStates(oldSeatStates);
-while(oldSeatStates.join() !== currentSeatStates.join()) {
-    oldSeatStates = [...currentSeatStates];
-    currentSeatStates = changeSeatStates(oldSeatStates);
-}
-
-console.log(`Part 1: ${currentSeatStates.flat().filter(x => x === "#").length}`);
+console.log(`Part 1: ${getOccupiedSeats(getAdjacentSeats, 4)}`);
 
 // Part 2
-const getSeat = (i = [0, 0, ""], j = [0, 0, ""]) => {
-    if(input[i[0] + i[1]][j[0] + j[1]] === ".") {
-        let seat = [i[0] + i[1], j[0] + j[1]];
-        while(input[seat[0]][seat[1]] === ".") {
-            i[2] === "+" ? seat[0]++ : void(i[2] === "-" && seat[0]--);
-            j[2] === "+" ? seat[1]++ : void(j[2] === "-" && seat[1]--);
-            if(seat[0] === -1 || seat[1] === - 1 || seat[0] >= input.length || seat[1] >= input[0].length) return null;
-        }
-        return seat;
-    } else {
-        return [i[0] + i[1], j[0] + j[1]];
-    }
-}
-
-const getVisibleSeats = (i = 0, j = 0) => {
+const getClosestSeats = (i = 0, j = 0) => {
     let seats = [];
-    if(i - 1 !== -1 && j - 1 !== -1) {
-        let seat = getSeat([i, -1, "-"], [j, -1, "-"]);
-        if(seat) seats.push(seat);
-    }
-    if(i - 1 !== -1) {
-        let seat = getSeat([i, -1, "-"], [j, 0, ""]);
-        if(seat) seats.push(seat);
-    }
-    if(i - 1 !== -1 && j + 1 < input[0].length) {
-        let seat = getSeat([i, -1, "-"], [j, 1, "+"]);
-        if(seat) seats.push(seat);
-    }
-    if(j + 1 < input[0].length) {
-        let seat = getSeat([i, 0, ""], [j, 1, "+"]);
-        if(seat) seats.push(seat);
-    }
-    if(i + 1 < input.length && j + 1 < input[0].length) {
-        let seat = getSeat([i, 1, "+"], [j, 1, "+"]);
-        if(seat) seats.push(seat);
-    }
-    if(i + 1 < input.length) {
-        let seat = getSeat([i, 1, "+"], [j, 0, ""]);
-        if(seat) seats.push(seat);
-    }
-    if(i + 1 < input.length && j - 1 !== -1) {
-        let seat = getSeat([i, 1, "+"], [j, -1, "-"]);
-        if(seat) seats.push(seat);
-    }
-    if(j - 1 !== -1) {
-        let seat = getSeat([i, 0, ""], [j, -1, "-"]);
-        if(seat) seats.push(seat);
-    }
-    return seats;
-}
 
-const changeSeatStates2 = (arr) => {
-    let seats = JSON.parse(JSON.stringify(arr));
-    let tempSeats = JSON.parse(JSON.stringify(seats));
-    for(let i = 0; i < arr.length; i++) {
-        for(let j = 0; j < arr[i].length; j++) {
-            let occupiedCount = 0;
-            for(const seat of getVisibleSeats(i, j)) {
-                if(tempSeats[seat[0]][seat[1]] === "#") {
-                    occupiedCount++;
-                }
-            }
-            if(tempSeats[i][j] !== "." && occupiedCount === 0) {
-                seats[i][j] = "#";
-            }
-            else if(tempSeats[i][j] === "#" && occupiedCount >= 5) {
-                seats[i][j] = "L";
-            }
+    for(const direction of directions) {
+        let location = direction.map((x, index) => x + [i, j][index]);
+        while(!isOutOfBounds(location) && input[location[0]][location[1]] === ".") {
+            location = location.map((x, index) => x + direction[index]);
         }
+        if(!isOutOfBounds(location)) seats.push(location);
     }
+
     return seats;
 }
 
-oldSeatStates = [...input]
-currentSeatStates = changeSeatStates2(oldSeatStates);
-while(oldSeatStates.join() !== currentSeatStates.join()) {
-    oldSeatStates = [...currentSeatStates];
-    currentSeatStates = changeSeatStates2(oldSeatStates);
-}
-
-console.log(`Part 2: ${currentSeatStates.flat().filter(x => x === "#").length}`);
+console.log(`Part 2: ${getOccupiedSeats(getClosestSeats, 5)}`);
