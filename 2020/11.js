@@ -48,139 +48,53 @@ while(JSON.stringify(oldSeatStates) !== JSON.stringify(currentSeatStates)) {
 console.log(`Part 1: ${currentSeatStates.flat().filter(x => x === "#").length}`);
 
 // Part 2
+const getSeat = (i = [0, 0, ""], j = [0, 0, ""]) => {
+    if(input[i[0] + i[1]][j[0] + j[1]] === ".") {
+        let seat = [i[0] + i[1], j[0] + j[1]];
+        while(input[seat[0]][seat[1]] === ".") {
+            i[2] === "+" ? seat[0]++ : void(i[2] === "-" && seat[0]--);
+            j[2] === "+" ? seat[1]++ : void(j[2] === "-" && seat[1]--);
+            if(seat[0] === -1 || seat[1] === - 1 || seat[0] >= input.length || seat[1] >= input[0].length) return null;
+        }
+        return seat;
+    } else {
+        return [i[0] + i[1], j[0] + j[1]];
+    }
+}
+
 const getVisibleSeats = (i = 0, j = 0) => {
     let seats = [];
     if(i - 1 !== -1 && j - 1 !== -1) {
-        if(input[i - 1][j - 1] === ".") {
-            let seat = [i - 1, j - 1];
-            let push = true;
-            while(input[seat[0]][seat[1]] === ".") {
-                seat[0]--;
-                seat[1]--;
-                if(seat[0] === -1 || seat[1] === -1) {
-                    push = false;
-                    break;
-                }
-            }
-            if(push) seats.push(seat);
-        } else {
-            seats.push([i - 1, j - 1]);
-        }
+        let seat = getSeat([i, -1, "-"], [j, -1, "-"]);
+        if(seat) seats.push(seat);
     }
     if(i - 1 !== -1) {
-        if(input[i - 1][j] === ".") {
-            let seat = [i - 1, j];
-            let push = true;
-            while(input[seat[0]][seat[1]] === ".") {
-                seat[0]--;
-                if(seat[0] === -1) {
-                    push = false;
-                    break;
-                }
-            }
-            if(push) seats.push(seat);
-        } else {
-            seats.push([i - 1, j]);
-        }
+        let seat = getSeat([i, -1, "-"], [j, 0, ""]);
+        if(seat) seats.push(seat);
     }
     if(i - 1 !== -1 && j + 1 < input[0].length) {
-        if(input[i - 1][j + 1] === ".") {
-            let seat = [i - 1, j + 1];
-            let push = true;
-            while(input[seat[0]][seat[1]] === ".") {
-                seat[0]--;
-                seat[1]++;
-                if(seat[0] === -1 || seat[1] >= input[0].length) {
-                    push = false;
-                    break;
-                }
-            }
-            if(push) seats.push(seat);
-        } else {
-            seats.push([i - 1, j + 1]);
-        }
+        let seat = getSeat([i, -1, "-"], [j, 1, "+"]);
+        if(seat) seats.push(seat);
     }
     if(j + 1 < input[0].length) {
-        if(input[i][j + 1] === ".") {
-            let seat = [i, j + 1];
-            let push = true;
-            while(input[seat[0]][seat[1]] === ".") {
-                seat[1]++;
-                if(seat[1] >= input[0].length) {
-                    push = false;
-                    break;
-                }
-            }
-            if(push) seats.push(seat);
-        } else {
-            seats.push([i, j + 1]);
-        }
+        let seat = getSeat([i, 0, ""], [j, 1, "+"]);
+        if(seat) seats.push(seat);
     }
     if(i + 1 < input.length && j + 1 < input[0].length) {
-        if(input[i + 1][j + 1] === ".") {
-            let seat = [i + 1, j + 1];
-            let push = true;
-            while(input[seat[0]][seat[1]] === ".") {
-                seat[0]++;
-                seat[1]++;
-                if(seat[0] >= input.length || seat[1] >= input[0].length) {
-                    push = false;
-                    break;
-                }
-            }
-            if(push) seats.push(seat);
-        } else {
-            seats.push([i + 1, j + 1]);
-        }
+        let seat = getSeat([i, 1, "+"], [j, 1, "+"]);
+        if(seat) seats.push(seat);
     }
     if(i + 1 < input.length) {
-        if(input[i + 1][j] === ".") {
-            let seat = [i + 1, j];
-            let push = true;
-            while(input[seat[0]][seat[1]] === ".") {
-                seat[0]++;
-                if(seat[0] >= input.length) {
-                    push = false;
-                    break;
-                }
-            }
-            if(push) seats.push(seat);
-        } else {
-            seats.push([i + 1, j]);
-        }
+        let seat = getSeat([i, 1, "+"], [j, 0, ""]);
+        if(seat) seats.push(seat);
     }
     if(i + 1 < input.length && j - 1 !== -1) {
-        if(input[i + 1][j - 1] === ".") {
-            let seat = [i + 1, j - 1];
-            let push = true;
-            while(input[seat[0]][seat[1]] === ".") {
-                seat[0]++;
-                seat[1]--;
-                if(seat[0] >= input.length || seat[1] === -1) {
-                    push = false;
-                    break;
-                }
-            }
-            if(push) seats.push(seat);
-        } else {
-            seats.push([i + 1, j - 1]);
-        }
+        let seat = getSeat([i, 1, "+"], [j, -1, "-"]);
+        if(seat) seats.push(seat);
     }
     if(j - 1 !== -1) {
-        if(input[i][j - 1] === ".") {
-            let seat = [i, j - 1];
-            let push = true;
-            while(input[seat[0]][seat[1]] === ".") {
-                seat[1]--;
-                if(seat[1] === -1) {
-                    push = false;
-                    break;
-                }
-            }
-            if(push) seats.push(seat);
-        } else {
-            seats.push([i, j - 1]);
-        }
+        let seat = getSeat([i, 0, ""], [j, -1, "-"]);
+        if(seat) seats.push(seat);
     }
     return seats;
 }
