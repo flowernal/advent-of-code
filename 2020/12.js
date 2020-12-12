@@ -23,7 +23,7 @@ for(const movement of input) {
     direction = direction === "F" ? facing : direction;
     x += direction === "E" ? value : direction === "W" ? -value : 0;
     y += direction === "N" ? value : direction === "S" ? -value : 0;
-    if(direction === "R" || direction === "L") rotate(direction, value);
+    if(["R", "L"].includes(direction)) rotate(direction, value);
 }
 
 console.log(`Part 1: ${Math.abs(x) + Math.abs(y)}`);
@@ -44,7 +44,7 @@ for(const movement of input) {
     wX += direction === "E" ? value : direction === "W" ? -value : 0;
     wY += direction === "N" ? value : direction === "S" ? -value : 0;
     [x, y] = direction === "F" ? [x + wX * value, y + wY * value] : [x, y];
-    if(direction === "R" || direction === "L") rotateWaypoint(direction, value);
+    if(["R", "L"].includes(direction)) rotateWaypoint(direction, value);
 }
 
 console.log(`Part 2: ${Math.abs(x) + Math.abs(y)}`);
