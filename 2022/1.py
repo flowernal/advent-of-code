@@ -1,9 +1,6 @@
-input = open("1.in", "r").read()
-inventories = input.split("\n\n")
-
 top3 = [0, 0, 0]
 
-for inventory in inventories:
+for inventory in open("1.in", "r").read().split("\n\n"):
 	calories = sum(map(int, inventory.split("\n")))
 	
 	if calories > top3[0]:
