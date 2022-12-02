@@ -1,6 +1,3 @@
-input = open("2.in", "r").read()
-
-
 def outcome1(opponent: str, me: str):
 	score = 0
 
@@ -74,7 +71,7 @@ def outcome2(opponent: str, me: str):
 score1 = 0
 score2 = 0
 
-for opponent, me in [game.split() for game in input.splitlines()]:
+for opponent, me in [game.split() for game in open("2.in", "r").read().splitlines()]:
 	score1 += outcome1(opponent, me)
 	score2 += outcome2(opponent, me)
 
