@@ -6,6 +6,7 @@ input = [[i[:len(i) // 2], i[len(i) // 2:]] for i in day(3).splitlines()]
 def priority(l: list[str]) -> int:
 	return sum([(ord(c) - 96 if ord(c) > 96 else ord(c) - 38) for c in set.intersection(*map(set, l))])
 
+
 print(f"Part 1: {sum([priority(l) for l in input])}")
 print(f"Part 2: {sum([priority(l) for l in [[''.join(p) for p in input][i:i + 3] for i in range(0, len(input), 3)]])}")
 
