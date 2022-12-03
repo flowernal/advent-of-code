@@ -1,17 +1,7 @@
-top3 = [0, 0, 0]
+input = [sum(map(int, i.splitlines())) for i in open("1.in", "r").read().split("\n\n")]
 
-for inventory in open("1.in", "r").read().split("\n\n"):
-	calories = sum(map(int, inventory.split("\n")))
-	
-	if calories > top3[0]:
-		top3[2] = top3[1]
-		top3[1] = top3[0]
-		top3[0] = calories
-	elif calories > top3[1]:
-		top3[2] = top3[1]
-		top3[1] = calories
-	elif calories > top3[2]:
-		top3[2] = calories
+print(f"Part 1: {max(input)}")
+print(f"Part 2: {sum(sorted(input, reverse=True)[:3])}")
 
-print(f"Part 1: {top3[0]}")
-print(f"Part 2: {sum(top3)}")
+# One-Liner
+# print(f'Part 1: {max([sum(map(int, i.splitlines())) for i in open("1.in", "r").read().split(2 * chr(10))])}\nPart 2: {sum(sorted([sum(map(int, i.splitlines())) for i in open("1.in", "r").read().split(2 * chr(10))], reverse=True)[:3])}')
