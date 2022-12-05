@@ -9,7 +9,7 @@ def part(part: int) -> str:
 
 	for amount, source, destination in [[int(n) for n in instruction.split()[1::2]] for instruction in input[1]]:
 		stacks[destination - 1] += stacks[source - 1][-amount:][::-1] if part == 1 else stacks[source - 1][-amount:]
-		stacks[source - 1] = stacks[source - 1][:-amount]
+		del stacks[source - 1][-amount:]
 
 	return ''.join([stack[-1] for stack in stacks])
 
