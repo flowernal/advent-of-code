@@ -1,19 +1,17 @@
 from aoc import day
 
 input = [l.splitlines() for l in day(5).split(2 * chr(10))]
-
-crates_reversed = input[0][:-1][::-1]
-instructions = [[int(n) for n in i.split()[1::2]] for i in input[1]]
+crates = input[0][:-1][::-1]
 
 
 def part(part: int) -> str:
-	crates = [[crate[i] for crate in crates_reversed if crate[i] != ' '] for i in range(1, len(input[0][0]), 4)]
+	cs = [[c[i] for c in crates if c[i] != ' '] for i in range(1, len(crates[0]), 4)]
 
-	for i in instructions:
-		crates[i[2] - 1] += crates[i[1] - 1][-i[0]:][::-1] if part == 1 else crates[i[1] - 1][-i[0]:]
-		crates[i[1] - 1] = crates[i[1] - 1][:-i[0]]
+	for i in [[int(n) for n in i.split()[1::2]] for i in input[1]]:
+		cs[i[2] - 1] += cs[i[1] - 1][-i[0]:][::-1] if part == 1 else cs[i[1] - 1][-i[0]:]
+		cs[i[1] - 1] = cs[i[1] - 1][:-i[0]]
 
-	return ''.join([c[-1] for c in crates])
+	return ''.join([c[-1] for c in cs])
 
 
 print(f"Part 1: {part(1)}")
