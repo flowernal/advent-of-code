@@ -1,9 +1,9 @@
 from aoc import day
 
-input = [sorted([list(map(int, r.split('-'))) for r in p.split(',')], key=lambda r: r[1] - r[0]) for p in day(4).splitlines()]
+input = [sorted([list(map(int, sections.split('-'))) for sections in pair.split(',')], key=lambda sections: sections[1] - sections[0]) for pair in day(4).splitlines()]
 
-print(f"Part 1: {sum([p[0][0] >= p[1][0] and p[0][1] <= p[1][1] for p in input])}")
-print(f"Part 2: {sum([p[1][0] <= p[0][0] <= p[1][1] or p[1][0] <= p[0][1] <= p[1][1] for p in input])}")
+print(f"Part 1: {sum([pair[0][0] >= pair[1][0] and pair[0][1] <= pair[1][1] for pair in input])}")
+print(f"Part 2: {sum([pair[1][0] <= pair[0][0] <= pair[1][1] or pair[1][0] <= pair[0][1] <= pair[1][1] for pair in input])}")
 
 # One-Liner
-# print(f"Part 1: {sum([p[0][0] >= p[1][0] and p[0][1] <= p[1][1] for p in [sorted([list(map(int, r.split('-'))) for r in p.split(',')], key=lambda r: r[1] - r[0]) for p in day(4).splitlines()]])}\nPart 2: {sum([p[1][0] <= p[0][0] <= p[1][1] or p[1][0] <= p[0][1] <= p[1][1] for p in [sorted([list(map(int, r.split('-'))) for r in p.split(',')], key=lambda r: r[1] - r[0]) for p in day(4).splitlines()]])}")
+# print(f"Part 1: {sum([pair[0][0] >= pair[1][0] and pair[0][1] <= pair[1][1] for pair in [sorted([list(map(int, sections.split('-'))) for sections in pair.split(',')], key=lambda sections: sections[1] - sections[0]) for pair in day(4).splitlines()]])}\nPart 2: {sum([pair[1][0] <= pair[0][0] <= pair[1][1] or pair[1][0] <= pair[0][1] <= pair[1][1] for pair in [sorted([list(map(int, sections.split('-'))) for sections in pair.split(',')], key=lambda sections: sections[1] - sections[0]) for pair in day(4).splitlines()]])}")

@@ -1,17 +1,17 @@
 from aoc import day
 
-input = [l.splitlines() for l in day(5).split(2 * chr(10))]
-crates = input[0][:-1][::-1]
+input = [section.splitlines() for section in day(5).split(2 * chr(10))]
+stack_strings = input[0][:-1][::-1]
 
 
 def part(part: int) -> str:
-	cs = [[c[i] for c in crates if c[i] != ' '] for i in range(1, len(crates[0]), 4)]
+	stacks = [[stack[i] for stack in stack_strings if stack[i] != ' '] for i in range(1, len(stack_strings[0]), 4)]
 
-	for i in [[int(n) for n in i.split()[1::2]] for i in input[1]]:
-		cs[i[2] - 1] += cs[i[1] - 1][-i[0]:][::-1] if part == 1 else cs[i[1] - 1][-i[0]:]
-		cs[i[1] - 1] = cs[i[1] - 1][:-i[0]]
+	for amount, source, destination in [[int(n) for n in i.split()[1::2]] for i in input[1]]:
+		stacks[destination] += stacks[source][-amount:][::-1] if part == 1 else stacks[source][-amount:]
+		stacks[source] = stacks[source][:-amount]
 
-	return ''.join([c[-1] for c in cs])
+	return ''.join([stack[-1] for stack in stacks])
 
 
 print(f"Part 1: {part(1)}")
