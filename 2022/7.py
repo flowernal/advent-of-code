@@ -10,16 +10,15 @@ sizes = []
 i = 0
 
 while i < len(input):
-	command = input[i].split()[1:]
+	command = input[i].split()
 	
-	if command[0] == "cd":
-		if command[1] != '..':
-			pointer[command[1]][".."] = pointer
+	if command[1] == "cd":
+		if command[2] != '..':
+			pointer[command[2]][".."] = pointer
 			
-		pointer = pointer[command[1]]
-	elif command[0] != "ls":
-		size, name = input[i].split()
-		pointer[name] = {} if size == "dir" else int(size) # type: ignore
+		pointer = pointer[command[2]]
+	elif command[1] != "ls":
+		pointer[command[1]] = {} if command[0] == "dir" else int(command[0]) # type: ignore
 
 	i += 1
 
