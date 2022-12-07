@@ -4,11 +4,11 @@ from typing import Optional
 input = day(7).splitlines()
 
 class Directory:
-	def __init__(self, parent: Optional["Directory"], directories: dict[str, "Directory"], files: list[tuple[int, str]]):
-		self.parent = self if parent is None else parent
-		self.directories = directories
-		self.files = files
-		self.size = 0
+	def __init__(self, parent: Optional["Directory"] = None):
+		self.parent: "Directory" = self if parent is None else parent
+		self.directories: dict[str, "Directory"] = {}
+		self.files: list[tuple[int, str]] = []
+		self.size: int = 0
 
 	def create_sizes(self):
 		self.size = sum([file[0] for file in self.files]) + sum([directory.create_sizes() for directory in self.directories.values()])
@@ -23,7 +23,7 @@ class Directory:
 		
 		return sizes
 
-filesystem = Directory(None, {}, [])
+filesystem = Directory()
 ref = filesystem
 
 i = 0
@@ -41,7 +41,7 @@ while i < len(input):
 				ref = ref.directories[command[2]]
 	elif command[1] != "ls":
 		if command[0] == "dir":
-			ref.directories[command[1]] = Directory(ref, {}, [])
+			ref.directories[command[1]] = Directory(ref)
 		else:
 			ref.files.append((int(command[0]), command[1]))
 
