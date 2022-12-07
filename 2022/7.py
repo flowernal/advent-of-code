@@ -3,7 +3,7 @@ from aoc import day
 input = day(7).splitlines()
 
 filesystem = { '/': {} }
-pointer = filesystem
+ref = filesystem
 
 sizes = []
 
@@ -14,11 +14,11 @@ while i < len(input):
 	
 	if command[1] == "cd":
 		if command[2] != '..':
-			pointer[command[2]][".."] = pointer
+			ref[command[2]][".."] = ref
 			
-		pointer = pointer[command[2]]
+		ref = ref[command[2]]
 	elif command[1] != "ls":
-		pointer[command[1]] = {} if command[0] == "dir" else int(command[0]) # type: ignore
+		ref[command[1]] = {} if command[0] == "dir" else int(command[0]) # type: ignore
 
 	i += 1
 
