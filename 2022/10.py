@@ -17,7 +17,7 @@ def do_cycle():
     if (cycle - 20) % 40 == 0:
         signal_strengths.append(cycle * X)
 
-    pixels += "#" if X - 1 <= crt_index <= X + 1 else "."
+    pixels += "█" if X - 1 <= crt_index <= X + 1 else "░"
     crt_index += 1 if crt_index < 39 else -39
 
     if crt_index == 0:
