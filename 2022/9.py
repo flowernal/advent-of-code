@@ -13,6 +13,9 @@ def get_vector_change(direction: str):
             return [1, 0]
         case 'D':
             return [0, -1]
+        case _:
+            print("Invalid direction argument")
+            exit(-1)
 
 
 def move_tail(head: list[int], tail: list[int]) -> None:

@@ -3,4 +3,5 @@ node_modules
 package.json
 package-lock.json
 .vscode
-*/__pycache__
+__pycache__
+*.txt
