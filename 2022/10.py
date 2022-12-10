@@ -27,12 +27,10 @@ def do_cycle():
 
 
 for instruction in input:
-    if instruction[0] == "noop":
-        cycle += do_cycle()
-    else:
-        cycle += do_cycle()
-        cycle += do_cycle()
+    cycle += do_cycle()
 
+    if instruction[0] == "addx":
+        cycle += do_cycle()
         X += int(instruction[1])
 
 print(f"Part 1: {sum(signal_strengths)}")
