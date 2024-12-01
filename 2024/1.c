@@ -32,7 +32,7 @@ int main(void)
     int right[MAX_DATA_LENGTH];
 
     // Allocate an array for memoization
-    int *dp = calloc(MAX_NUMBER, sizeof(int));
+    int *dp = calloc(MAX_NUMBER + 1, sizeof(int));
 
     // Read the file's lines
     while (fgets(buffer, sizeof(buffer), file)) {
