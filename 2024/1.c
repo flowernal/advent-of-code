@@ -43,7 +43,7 @@ int main(void)
         left[l] = strtol(buffer, &p_end, 10);
         right[l] = strtol(p_end, &p_end, 10);
 
-        // Increase the occurence of the right number
+        // Increase the amount of the right number's occurrences
         dp[right[l++]]++;
     }
 
