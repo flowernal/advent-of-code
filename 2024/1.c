@@ -47,6 +47,9 @@ int main(void)
         dp[right[l++]]++;
     }
 
+    // Close the file as we don't need it anymore
+    fclose(file);
+
     // Sort both arrays as this is needed for the first part
     qsort(left, l, sizeof(int), compare);
     qsort(right, l, sizeof(int), compare);
@@ -63,5 +66,6 @@ int main(void)
     printf("Part 1: %u\n", distance);
     printf("Part 2: %u\n", similarity);
 
+    free(dp);
     return EXIT_SUCCESS;
 }
