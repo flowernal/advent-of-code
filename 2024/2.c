@@ -97,4 +97,6 @@ int main(void)
 
     printf("Part 1: %d\n", safe_reports);
     printf("Part 2: %d\n", safe_reports + safe_reports_with_bad_level);
+
+    return EXIT_SUCCESS;
 }
