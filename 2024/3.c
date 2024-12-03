@@ -27,28 +27,28 @@ int main(void)
             continue;
         }
 
-        if (load_characters) {
-            buffer[length++] = c;
+        if (!load_characters) continue;
 
-            if (c == ')') {
-                buffer[length] = 0;
+        buffer[length++] = c;
 
-                if (buffer[0] == 'm') {
-                    int n = parse_number(buffer, length);
+        if (c != ')') continue;
 
-                    if (n != -1) {
-                        sum += n;
-                        if (enabled) sum2 += n;
-                    }
-                } else {
-                    if (!strcmp(buffer, "do()")) enabled = true;
-                    if (!strcmp(buffer, "don't()")) enabled = false;
-                }
+        buffer[length] = 0;
 
-                length = 0;
-                load_characters = false;
+        if (buffer[0] == 'm') {
+            int n = parse_number(buffer, length);
+
+            if (n != -1) {
+                sum += n;
+                if (enabled) sum2 += n;
             }
+        } else {
+            if (!strcmp(buffer, "do()")) enabled = true;
+            if (!strcmp(buffer, "don't()")) enabled = false;
         }
+
+        length = 0;
+        load_characters = false;
     }
 
     printf("Part 1: %d\n", sum);
